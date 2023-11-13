@@ -67,10 +67,13 @@ AND orderid <> 'OrderID';
 #8 List all the products sold in Los Angeles in February, and include how many of each were sold and calculate the revenue of the sold items. 
 
 SELECT DISTINCT (product) as product, 
-quantity, 
-ROUND((quantity * price),2) as revenue 
+SUM(quantity) as tot_quantity, 
+ROUND(SUM(quantity * price),2) as revenue 
 FROM BIT_DB.FebSales
-WHERE location like '%Los Angeles%'; 
+WHERE location like '%Los Angeles%'
+GROUP BY product; 
+
+
 
 
 
