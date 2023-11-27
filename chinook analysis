@@ -1,0 +1,80 @@
+
+
+
+
+#1 Show Customers (their full names, customer ID, and country) who are not in the US. 
+
+SELECT 
+Customerid, 
+FirstName, 
+LastName, 
+Country 
+FROM chinook.customers 
+WHERE country != "USA"
+GROUP BY country;
+
+#2 Show only the Customers from Brazil. 
+
+SELECT 
+customerid, 
+FirstName, 
+LastName, 
+Country 
+FROM chinook.customers
+WHERE country = "Brazil"; 
+
+
+#3 Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+
+SELECT c.FirstName as "First Name", 
+c.LastName as "Last Name", 
+i.InvoiceId as "Invoice ID", 
+i.InvoiceDate as "Invoice Date", 
+i.BillingCountry as "Billing Country" 
+FROM chinook.customers as c 
+INNER JOIN chinook.invoices as i 
+WHERE c.Country = "Brazil"
+AND i.CustomerID = c.CustomerID; 
+
+#4 Show the Employees who are Sales Agents. 
+
+SELECT e.FirstName as "Fisrt Name", 
+e.LastName as "Last Name", 
+e.Title 
+FROM chinook.employees as e 
+WHERE Title == 'Sales Support Agent';
+
+#5 Find a unique/distinct list of billing countries from the Invoice table.
+
+SELECT distinct i.billingCountry as "Billing Country"
+FROM chinook.invoices as i
+ORDER BY i.billingCountry;
+
+#6 Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+
+SELECT e.FirstName as "First Name", 
+e.LastName as "Last Name", 
+e.Title as "Title",
+i.InvoiceId as "Invoice ID", 
+i.InvoiceDate as "Invoice Date"
+FROM chinook.employees as e, chinook.invoices as i, chinook.customers as c 
+WHERE c.CustomerId = i.invoiceid 
+AND e.Title = "Sales Support Agent"; 
+
+#7 Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers. 
+
+SELECT c.FirstName ||' '|| c.LastName as "Customer Name", 
+e.FirstName ||' '|| e.LastName as "Employee Name",
+e.title,
+i.Total, 
+c.country
+FROM customers as c 
+LEFT JOIN invoices as i on i.customerid = c.customerid 
+LEFT JOIN employees as e on e.employeeid = c.supportrepid;
+
+#8 How many Invoices were there in 2009? 
+
+SELECT COUNT (InvoiceId)
+FROM chinook.invoices
+WHERE InvoiceDate Like '2009%'; 
+
