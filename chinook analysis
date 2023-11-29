@@ -1,5 +1,4 @@
-
-
+This is the analysis of the Data Base Chinook from Kaggle, that have the date of customers, employees, invoices, tracks, and albums that are for sale. 
 
 
 #1 Show Customers (their full names, customer ID, and country) who are not in the US. 
@@ -77,4 +76,67 @@ LEFT JOIN employees as e on e.employeeid = c.supportrepid;
 SELECT COUNT (InvoiceId)
 FROM chinook.invoices
 WHERE InvoiceDate Like '2009%'; 
+
+#9 What are the total sales for 2009? 
+
+SELECT ROUND(SUM(Total),2) as "2009 Total Sales" 
+FROM chinook.invoices 
+WHERE InvoiceDate Like '2009%';  
+
+#10 Write a query that includes the purchased track name with each invoice line ID. 
+
+SELECT t.Name as "Track Name", 
+i.invoicelineid as "Invoice Line ID"
+FROM chinook.tracks as t 
+LEFT JOIN chinook.invoice_items as i 
+WHERE t.trackid = i.trackid;  
+
+#11 Write a query that includes the purchased track name AND artist name with each invoice line ID.
+
+SELECT t.Name as "Track Name", 
+art.name as "Artist Name", 
+i.invoiceid as "Invoice ID", 
+i.invoicelineid as "Invoice Line ID" 
+FROM chinook.invoice_items as i
+LEFT JOIN chinook.tracks as t on t.trackid = i.trackid 
+LEFT JOIN chinook.albums as a on a.albumid = t.albumid 
+LEFT JOIN chinook.artists as art on art.artistid = a.artistid;  
+
+
+#12 Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre. 
+
+SELECT t.Name as "Track Name", 
+m.MediaTypeid as "Media Type", 
+g.name as "Genreid", 
+a.title as "Album Title"
+FROM chinook.tracks as t 
+LEFT JOIN chinook.media_types as m on m.mediatypeid = t.mediatypeid 
+LEFT JOIN chinook.genres as g on g.genreid = t.genreid 
+LEFT JOIN chinook.albums as a on a.albumid = t.albumid; 
+
+#13 Show the total sales made by each sales agent. 
+
+SELECT e.FirstName ||' '|| e.LastName as "Name", e.title as "Title",
+ROUND(SUM(i.Total),2) as "Total Sales"
+FROM chinook.employees as e 
+LEFT JOIN chinook.customers as c on c.supportrepid = e.employeeid 
+LEFT JOIN chinook.invoices as i on c.customerid = i.customerid
+WHERE e.Title = "Sales Support Agent"
+GROUP BY e.employeeid; 
+
+
+#14 Which sales agent made the most dollars in sales in 2009? 
+
+SELECT e.FirstName ||' '|| e.LastName as "Name", e.title as "Title",
+ROUND(SUM(i.Total),2) as "2009 Total Sales"
+FROM chinook.employees as e 
+LEFT JOIN chinook.customers as c on c.supportrepid = e.employeeid 
+LEFT JOIN chinook.invoices as i on c.customerid = i.customerid
+WHERE e.Title = "Sales Support Agent"
+AND i.invoicedate like "2009%"
+GROUP BY e.employeeid;  
+
+
+
+
 
