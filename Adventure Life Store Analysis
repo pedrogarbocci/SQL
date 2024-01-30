@@ -1,0 +1,37 @@
+# This project utilizes the following data: 
+
+https://github.com/bcafferky/shared/blob/master/PythonSQLite/PythonSQLite.zip
+
+I've created sql lite data set and imported the tables into it. 
+
+#1 Consolidate a table with customer full's name, product key, sales territory, sales amount, and order date using the intersales table and the dimcustomer table:  
+
+select 
+d.FirstName ||" "|| d.LastName as "Full Name",
+i.ProductKey, 
+i.SalesTerritoryKey, 
+i.SalesAmount, 
+i.OrderDate
+from intersales as i
+left join dimcustomer as d
+on i.CustomerKey = d.CustomerKey; 
+
+#2 Refining the previous table with the addition of the country and the description of the products using the following tables: awsalesterritory and the awproduct: 
+
+select 
+c."Full Name", 
+w.ProductName as "Product",
+c.SalesAmount, 
+a.SalesTerritoryCountry as "Country",
+c.OrderDate
+
+from consales as c 
+Left Join awsalesterritory as a 
+on c.SalesTerritoryKey = a.SalesTerritoryKey
+Left join awproduct as w 
+on c.productkey = w.productkey; 
+
+I've exported the results into a CSV table and then imported it to the Tableau public and created the following data visualization and analysis:    
+
+https://public.tableau.com/app/profile/pedro.henrique.enes.garbocci/viz/AdventureLifeStore/Dashboard1?publish=yes 
+
