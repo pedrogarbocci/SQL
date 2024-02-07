@@ -9,7 +9,7 @@ I've created sql lite data set and imported the tables into it.
 select round(sum("Total Net Sales"), 2) as profit 
 from productsales; 
 
-2# Calculating the avarege of the net sales: 
+2# Calculating the average of the net sales: 
 
 select round(avg("Total Net Sales"),2) as AVG_Sales
 from productsales;  
@@ -19,12 +19,12 @@ from productsales;
 select round(sum(Discounts),2) as Total_Discounts 
 from productsales; 
 
-4# Calculating the avarage of the discounts applied: 
+4# Calculating the average of the discounts applied: 
 
 select round(avg(Discounts),2) as AVG_Discounts
 from productsales;  
 
-5# Calculating the total amount of returns group by the product type: 
+5# Calculating the total amount of returns grouped by the product type: 
 
 select "Product Type", 
 round(sum(Returns),2) as "Total Returns"
@@ -32,7 +32,7 @@ from productsales
 where "Product Type" <> ''
 Group By "Product Type";
 
-6# Creating a table with the product type, total of items sold and the total net sales for each type of product: 
+6# Creating a table with the product type, total of items sold, and the total net sales for each type of product: 
 
 Select "Product Type",
 sum("Net Quantity") as Total_Items,
@@ -41,7 +41,7 @@ from productsales
 where "Product Type" <> ''
 group by "Product Type"; 
 
-7# Calculating the number of orders, the amount of discounts, the amount of returns and the total of net sales grouped by the year: 
+7# Calculating the number of orders, the total amount of discounts, the value of returns, and the total of net sales grouped by the year: 
 
 select Year, 
 "Total Orders", 
@@ -50,4 +50,23 @@ round(sum("Returns"),1) as "Returns",
 round(sum("Net Sales"),1) as "Net Sales"
 from monthsales 
 group by Year;  
+
+8# Identifying the month with the best performance for each year: 
+
+Select Year, 
+Month,
+"Total Orders", 
+Round(MAX("Net Sales"),2) as "Total Sales"
+from monthsales 
+group by Year;  
+
+9# Identifying the month with the lowest performance for each year: 
+
+Select Year, 
+Month, 
+"Total Orders", 
+Round(MIN("Net Sales"),2) as "Total Sales"
+from monthsales 
+group by Year; 
+
 
