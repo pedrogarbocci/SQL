@@ -1,0 +1,78 @@
+# This project utilizes the following data: 
+
+https://www.kaggle.com/datasets/samruddhi4040/online-sales-data 
+
+I've created sql lite data set and imported the tables into it. 
+
+#1 Calculating the total of orders: 
+
+Select Count(distinct("Order ID")) as "Total Orders"
+from details;  
+
+#2 Calculating the profit: 
+
+select round(sum(Profit), 2) as "Total Profit"
+from details;  
+
+#3 Calculating the profit per category of product: 
+
+select 
+Category,
+round(sum(Profit),2) as "Total Profit"
+from details 
+group by Category;  
+
+#4 Calculating the total of items sold:
+
+select 
+sum(Quantity) as "Total Items Sold"
+from details; 
+
+#5 Calculating the total of items sold per category:
+
+select 
+Category,
+sum(Quantity) as "Total Items Sold" 
+from details
+group by Category; 
+
+#6 Calculating the total of customers:
+
+select 
+count(distinct(CustomerName)) as "Total of Clients"
+from orders; 
+
+#7 Calculating the profit for each payment mode: 
+
+select "PaymentMode", 
+round(sum(Profit),2) as "Total Profit"
+from details
+group by "PaymentMode";
+
+#8 Calculating the total loss for each category:
+
+Select 
+Category,
+round(sum(Profit),2) as "Loss"
+from details
+where Profit like '-%'
+group by Category; 
+
+#9 Merging the two tables into one with relevant informations to do the executive dashbord overview in tableau: 
+
+select d."Order Id", 
+o."Order Date" as "Order Date", 
+o."CustomerName" as "Customer Name", 
+o.State as "State",
+d.Amount as "Gross Sales",
+d.Profit as "Profit",
+d.Quantity as "Quantity",
+d.Category as "Category",
+d."Sub-Category" as "Sub Category",
+d."PaymentMode" as "Payment Mode"
+from details as d 
+Left Join orders as o
+where d."Order ID" = o."Order ID"; 
+
+You can check the data visualization on: https://public.tableau.com/app/profile/pedro.henrique.enes.garbocci/viz/Indiaecommerceanalysis/Dashboard1 
+
