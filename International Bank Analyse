@@ -1,0 +1,65 @@
+# This project utilizes the following data: 
+
+https://www.kaggle.com/datasets/rangalamahesh/bank-churn 
+
+I've created sql lite data set and imported the tables into it. 
+
+#1 Calculating the average salary of the clients of the bank: 
+
+select round(avg("EstimatedSalary"),2)
+as "AVG_SALARY"
+from bankchurn."test ";
+
+#2 Calculating the average age of the clients: 
+
+select round(avg("Age"),0) as "AVG_Age"
+from bankchurn."test "; 
+
+#3 Calculating the average account balance of the customers: 
+
+select round(avg("Balance"),2)
+as "AVG Count Balance" 
+from bankchurn."test "; 
+
+#4 Identifying how many customers are from France: 
+
+select count("Geography") as "France Users"
+from bankchurn."test "
+where "Geography" = 'France';
+
+#5 Identifying how many customers are from Germany: 
+
+select count("Geography") as "Germany Users"
+from bankchurn."test "
+where "Geography" = 'Germany'; 
+
+#6 Identifying how many customers are from Spain: 
+
+select count("Geography") as "Spain Users"
+from bankchurn."test "
+where "Geography" = 'Spain'; 
+
+#7 Identifying how many male customers the bank has: 
+
+select count("Gender") as 'Male Users'
+from bankchurn."test "
+where "Gender" = 'Male'; 
+
+#8 Identifying how many female customers the bank has: 
+
+select count("Gender") as 'Female Users'
+from bankchurn."test "
+where "Gender" = 'Female'; 
+
+#9 Calculating the average tenure time of the clients: 
+
+select round(avg("Tenure"),2) as 'Avg Tenure'
+from bankchurn."test "; 
+
+#10 Calculating the average credit score of the clients of the bank: 
+
+select round(avg("CreditScore"),2) as 'Avg Credict Score'
+from bankchurn."test ";
+
+You can check the data visualization on: 
+
