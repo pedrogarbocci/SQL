@@ -61,5 +61,5 @@ from bankchurn."test ";
 select round(avg("CreditScore"),2) as 'Avg Credict Score'
 from bankchurn."test ";
 
-You can check the data visualization on: 
+You can check the data visualization on: https://public.tableau.com/app/profile/pedro.henrique.enes.garbocci/viz/InternationalBankAnalysis/Dashboard1 
 
